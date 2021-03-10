@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import NumberDropDown from './numberDropDown.component.js';
 import TypeDropDown from './typeDropDown.component.js';
 import TableTextField from './tableTextField.component.js';
-import DropDownContext from './context/dropdown-context.js';
+import DropDownContext from '../context/dropdown-context.js';
 import Button from '@material-ui/core/Button';
 
 

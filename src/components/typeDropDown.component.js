@@ -44,7 +44,7 @@ export default function TypeDropDown() {
                     displayEmpty
                     className={classes.selectEmpty}
                     inputProps={{ 'aria-label': 'Without label' }}>
-                    <MenuItem value="" disabled></MenuItem>
+                    <MenuItem value={''} disabled></MenuItem>
                     <MenuItem value={'normal'}>Normal</MenuItem>
                     <MenuItem value={'two-chance'}>Two-chance</MenuItem>
                     <MenuItem value={'combined'}>Combined</MenuItem>

@@ -6,7 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import DropDownContext from './context/dropdown-context.js';
+import DropDownContext from '../context/dropdown-context.js';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +49,7 @@ export default function NumberDropDown() {
                     displayEmpty
                     className={classes.selectEmpty}
                     inputProps={{ 'aria-label': 'Without label' }}>
-                    <MenuItem value="" disabled></MenuItem>
+                    <MenuItem value={''} disabled></MenuItem>
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
                     <MenuItem value={3}>3</MenuItem>
