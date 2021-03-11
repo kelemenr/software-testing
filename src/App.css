@@ -20,6 +20,7 @@ h2 {
 
 span {
   color: #00FF80;
+  /*color: #FFFFFF;*/
   margin: 0 0.7rem 0 0;
 }
 
@@ -41,5 +42,12 @@ span {
   background-color: #131442;
   padding: 1.5rem 2rem 1.5rem 2rem;
   margin: 1.5rem 15rem 1.5rem 15rem;
+  border-radius: 0.5rem;
+}
+
+.calculator {
+  background-color: #7F81AA;
+  padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+  margin: 1rem 0rem 1rem 0rem;
   border-radius: 0.5rem;
 }
