@@ -12,7 +12,6 @@ import TypeDropDown from './typeDropDown.component.js';
 import TableTextField from './tableTextField.component.js';
 import DropDownContext from '../context/dropdown-context.js';
 
-
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -23,8 +22,6 @@ const useStyles = makeStyles({
   }
 });
 
-const rows = [];
-
 export default function CalculatorTable() {
   const classes = useStyles();
 
@@ -32,26 +29,26 @@ export default function CalculatorTable() {
     let rows = [];
     for (let i = 0; i < rowNumber; i++) {
       rows.push(
-      <TableRow >
-        <TableCell align="left">Bet #{i + 1}</TableCell>
-        <TableCell align="left"><TableTextField></TableTextField></TableCell>
-        <TableCell align="right"></TableCell>
-        <TableCell align="right"></TableCell>
-      </TableRow>);
+        <TableRow >
+          <TableCell align="left">Bet #{i + 1}</TableCell>
+          <TableCell align="left"><TableTextField></TableTextField></TableCell>
+          <TableCell align="right"></TableCell>
+          <TableCell align="right"></TableCell>
+        </TableRow>);
     }
     return rows;
   };
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
+      <Table className={classes.table} size="small" aria-label="a table">
         <TableHead className={classes.table_header}>
-              <TableRow>
-                <TableCell><b>Amount of Bets</b></TableCell>
-                <TableCell align="left"><NumberDropDown></NumberDropDown></TableCell>
-                <TableCell align="right"><b>Betting Type</b></TableCell>
-                <TableCell align="right"><TypeDropDown></TypeDropDown></TableCell>
-              </TableRow>
+          <TableRow>
+            <TableCell><b>Amount of Bets</b></TableCell>
+            <TableCell align="left"><NumberDropDown></NumberDropDown></TableCell>
+            <TableCell align="right"><b>Betting Type</b></TableCell>
+            <TableCell align="right"><TypeDropDown></TypeDropDown></TableCell>
+          </TableRow>
         </TableHead>
         <TableBody>
           <DropDownContext.Consumer>
