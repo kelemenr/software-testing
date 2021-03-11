@@ -17,18 +17,14 @@ const useStyles = makeStyles((theme) => ({
     },
     formControl: {
         margin: theme.spacing(1),
-        minWidth: '25ch',
+        minWidth: 120,
     },
 }));
 
 export default function NumberDropDown() {
     const classes = useStyles();
-    const { chosenNumber, setChosenNumber } = React.useContext(DropDownContext);
+    const { chosenNumber, setChosenNumber } = React.useContext(DropDownContext)
     const [open, setOpen] = React.useState(false);
-
-    {/*const handleChange = (event) => {
-        setChosenNumber(event.target.value);
-    };*/}
 
     const handleClose = () => {
         setOpen(false);
@@ -49,7 +45,7 @@ export default function NumberDropDown() {
                     displayEmpty
                     className={classes.selectEmpty}
                     inputProps={{ 'aria-label': 'Without label' }}>
-                    <MenuItem value={''} disabled></MenuItem>
+                    <MenuItem value="" disabled></MenuItem>
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
                     <MenuItem value={3}>3</MenuItem>

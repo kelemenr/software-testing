@@ -11,15 +11,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TableTextField(props) {
-  //const classes = useStyles();
+export default function TableTextField() {
+  const classes = useStyles();
 
   return (
-    <form //className={classes.root} 
-    noValidate autoComplete="off">
-      <TextField id="outlined-basic" variant="outlined" />
+    <form className={classes.root} noValidate autoComplete="off">
+      <TextField id="outlined-basic" label="Odds" variant="outlined" />
     </form>
   );
 }
-
-export default TableTextField();
