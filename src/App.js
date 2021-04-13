@@ -1,39 +1,64 @@
-import './App.css';
-import wave from './wave-header.svg';
-import CalculatorTable from './components/calculatorTable.component.js';
-import useNumberDropDown from './hooks/useNumberDropDown';
-import DropDownContext from './context/dropdown-context.js';
-import useTypeDropDown from './hooks/useTypeDropDown';
+import { useState } from 'react'
+import { Grid, Box, Paper, Typography, Select, MenuItem, InputLabel, FormControl, Button } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
-function App() {
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}))
 
-  const { chosenNumber, setChosenNumber } = useNumberDropDown();
-  const { chosenType, setChosenType } = useTypeDropDown();
+export default function App() {
+  const classes = useStyles()
+  const [command, setCommand] = useState(1)
+  
+  const handleChange = (event) => {
+    setCommand(event.target.value)
+  }
+
+  const sendCommand = () => {
+    console.log('command:' + command)
+  }
 
   return (
-    <div>
-      <div>
-        <img src={wave} alt="Wave"></img>
-      </div>
-      <h2><span>►</span> Expected Return Calculator</h2>
-      <div className='content'>
-        <p>There are three types of bets: <b>normal, combined, and two-chance</b>. <br></br>
-          There can be maximum <b>10 bets</b> for the normal and two-chance, and there can only be <b>2 or 3 bets</b> for the combined one, and only <b>one bet</b> for the two-chance. <br></br>
-          The <b>minimum value</b> for a coupon in the normal one is <b>5$ and 2$</b> in the combined, and <b>1000$ at maximum</b> for each one. </p>
-        <p>In the <b>normal</b> one: the provided odds will be multiplied with each other.<br></br>
-          If there are <b>5 or more bets</b> made, there is an <b>extra 5%</b> for the final odds.</p>
-        <p>In the <b>combined</b> one: there are <b>two types</b> of bets: <b>2/3 and 3/4</b>. In this type of bet we are making a bet for each one of the possible outcomes.<br></br>
-          The expected winning is the average of the multiplication  of the outcome odds.<br></br>
-          There is an opportunity for calculating the case when not every bet is correct. In this case the odds will be 0 for the the cases where the bet is wrong.</p>
-        <p>In the <b>two-chance</b>: <b>either a draw or one of the team's win counts as a correct bet</b>. In this case we are select a team, and if it wins, we get the <b>full odds</b>, but if it is a draw, we are getting <b>50% less odds</b>. </p>
-      </div>
-      <div className='content'>
-        <DropDownContext.Provider value={{ chosenValue: chosenNumber, chosenType: chosenType, setChosenNumber, setChosenType }} >
-          <CalculatorTable></CalculatorTable>
-        </DropDownContext.Provider>
-      </div>
-    </div>
-  );
+    <Box m={5}>
+      <Grid container justify='center' s={2}>
+        <Grid item xs={6} m={2}>
+          <Paper className={classes.paper} elevation={3}>
+            <Typography variant='h3' gutterBottom>Robodog</Typography>
+            <Typography variant='h6' gutterBottom>Robodog is an interactive puppy that is able to react to commands and touch.</Typography>
+            <Typography variant='body1' align='left'>Its functionality has the following specification:</Typography>
+            <Box marginLeft={3}>
+              <Typography variant='body2' align='left'>- When it hears the command 'speak' it starts barking.</Typography>
+              <Typography variant='body2' align='left'>- While barking, the robodog waits for the command 'quiet', then stops barking or waits to get petted.</Typography>
+              <Typography variant='body2' align='left'>- For this latter event Robodog stops barking, wags his tail for 5 seconds, then starts barking again.</Typography>
+              <Typography variant='body2' align='left'>- However, after the third time petting the flustered Robodog, it stops barking, wags his tail for 5 seconds, and then goes to quiet.</Typography>
+              <Typography variant='body2' align='left'>- When the silent Robodog sensors spot a Robocat, then the Robodog starts barking.</Typography>
+              <Typography variant='body2' align='left'>- During an action the Robodog does not accept any other commands.</Typography>
+            </Box>
+            <Box m={3}>
+              <FormControl fullWidth>
+                <InputLabel id='command-label'>Command</InputLabel>
+                <Select
+                  id='command-select'
+                  labelId='command-label'
+                  value={command}
+                  onChange={handleChange}
+                >
+                  <MenuItem value={1}>Speak</MenuItem>
+                  <MenuItem value={2}>Quiet</MenuItem>
+                  <MenuItem value={3}>Pet</MenuItem>
+                </Select>
+              </FormControl>
+              <Box m={2}>
+                <Button variant='contained' color='primary' onClick={sendCommand}>send command</Button>
+              </Box>
+            </Box>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Box>
+  )
 }
-
-export default App;
