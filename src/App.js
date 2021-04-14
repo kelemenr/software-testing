@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Grid, Box, Paper, Typography, Select, MenuItem, InputLabel, FormControl, Button } from '@material-ui/core'
+import { useState, useEffect } from 'react'
+import { Grid, Box, Paper, Typography, Select, MenuItem, InputLabel, FormControl, Button, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -12,15 +12,51 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles()
-  const [command, setCommand] = useState(1)
-  
+  const [command, setCommand] = useState('speak')
+  const [action, setAction] = useState('none')
+  const [active, setActive] = useState(true)
+  const [flusterLevel, setFlusterLevel] = useState(0)
+
   const handleChange = (event) => {
     setCommand(event.target.value)
   }
 
   const sendCommand = () => {
-    console.log('command:' + command)
+    if(command === 'speak') {
+      setAction('barking')
+    } else if (command === 'quiet') {
+      let rand = Math.floor(Math.random() * 2)
+
+      if(rand === 1) {
+        setAction('none')
+      } else {
+        setActive(false)
+        setAction('wagging tail, and waiting for petting!')
+        setTimeout(() => { setAction('barking'); setActive(true) }, 5000)
+      }
+    } else if (command === 'pet') {
+      setActive(false)
+      setAction('wagging tail, pleased!')
+      setFlusterLevel(flusterLevel + 1)
+      if (flusterLevel === 3) {
+        setTimeout(() => { setAction('none'); setFlusterLevel(0); setActive(true) }, 5000)
+      } else {
+        setTimeout(() => { setAction('barking'); setActive(true) }, 5000)
+      }
+    }
   }
+
+  useEffect(() => {
+    // looking for robocats at every 2 secs, if doing nothing
+    const interval = setInterval(() => {
+      let rand = Math.floor(Math.random() * 10)
+      console.log('Robocat random number:', rand)
+      if(rand === 6 && action === 'none' ) {
+        setAction('spotted a robocat! barking aggressively!')
+      }
+    }, 2000)
+    return () => clearInterval(interval)
+  })
 
   return (
     <Box m={5}>
@@ -40,20 +76,26 @@ export default function App() {
             </Box>
             <Box m={3}>
               <FormControl fullWidth>
-                <InputLabel id='command-label'>Command</InputLabel>
+                <TextField id='action' label='Action' variant='outlined' value={action} disabled />
+              </FormControl>
+            </Box>
+            <Box m={3}>
+              <FormControl variant='outlined' fullWidth>
+                <InputLabel id='command-select'>Command</InputLabel>
                 <Select
-                  id='command-select'
-                  labelId='command-label'
+                  id='command'
+                  label='Command'
+                  labelId='command-select'
                   value={command}
                   onChange={handleChange}
                 >
-                  <MenuItem value={1}>Speak</MenuItem>
-                  <MenuItem value={2}>Quiet</MenuItem>
-                  <MenuItem value={3}>Pet</MenuItem>
+                  <MenuItem value={'speak'}>Speak</MenuItem>
+                  <MenuItem value={'quiet'}>Quiet</MenuItem>
+                  <MenuItem value={'pet'}>Pet</MenuItem>
                 </Select>
               </FormControl>
               <Box m={2}>
-                <Button variant='contained' color='primary' onClick={sendCommand}>send command</Button>
+                <Button variant='contained' color='primary' disabled={!active} onClick={sendCommand}>send command</Button>
               </Box>
             </Box>
           </Paper>
