@@ -10,12 +10,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+let flusterLevel = 0
+
 export default function App() {
   const classes = useStyles()
   const [command, setCommand] = useState('speak')
   const [action, setAction] = useState('none')
   const [active, setActive] = useState(true)
-  const [flusterLevel, setFlusterLevel] = useState(0)
 
   const handleChange = (event) => {
     setCommand(event.target.value)
@@ -36,10 +37,10 @@ export default function App() {
       }
     } else if (command === 'pet') {
       setActive(false)
+      flusterLevel++
       setAction('wagging tail, pleased!')
-      setFlusterLevel(flusterLevel + 1)
       if (flusterLevel === 3) {
-        setTimeout(() => { setAction('none'); setFlusterLevel(0); setActive(true) }, 5000)
+        setTimeout(() => { setAction('none'); flusterLevel = 0; setActive(true) }, 5000)
       } else {
         setTimeout(() => { setAction('barking'); setActive(true) }, 5000)
       }
@@ -50,7 +51,7 @@ export default function App() {
     // looking for robocats at every 2 secs, if doing nothing
     const interval = setInterval(() => {
       let rand = Math.floor(Math.random() * 10)
-      console.log('Robocat random number:', rand)
+      //console.log('Robocat random number:', rand)
       if(rand === 6 && action === 'none' ) {
         setAction('spotted a robocat! barking aggressively!')
       }
@@ -89,13 +90,13 @@ export default function App() {
                   value={command}
                   onChange={handleChange}
                 >
-                  <MenuItem value={'speak'}>Speak</MenuItem>
-                  <MenuItem value={'quiet'}>Quiet</MenuItem>
-                  <MenuItem value={'pet'}>Pet</MenuItem>
+                  <MenuItem id='speakCommand' value={'speak'}>Speak</MenuItem>
+                  <MenuItem id='quietCommand' value={'quiet'}>Quiet</MenuItem>
+                  <MenuItem id='petCommand' value={'pet'}>Pet</MenuItem>
                 </Select>
               </FormControl>
               <Box m={2}>
-                <Button variant='contained' color='primary' disabled={!active} onClick={sendCommand}>send command</Button>
+                <Button id='commandButton' variant='contained' color='primary' disabled={!active} onClick={sendCommand}>send command</Button>
               </Box>
             </Box>
           </Paper>
