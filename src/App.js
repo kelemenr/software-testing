@@ -17,6 +17,7 @@ export default function App() {
   const [command, setCommand] = useState('speak')
   const [action, setAction] = useState('none')
   const [active, setActive] = useState(true)
+  //const [flusteredLevel, setflusteredLevel] = useState(0)
 
   const handleChange = (event) => {
     setCommand(event.target.value)
@@ -38,9 +39,10 @@ export default function App() {
     } else if (command === 'pet') {
       setActive(false)
       flusterLevel++
+      //setflusteredLevel(flusteredLevel + 1)
       setAction('wagging tail, pleased!')
       if (flusterLevel === 3) {
-        setTimeout(() => { setAction('none'); flusterLevel = 0; setActive(true) }, 5000)
+        setTimeout(() => { setAction('none'); flusterLevel = 0; /*setflusteredLevel(0);*/ setActive(true) }, 5000)
       } else {
         setTimeout(() => { setAction('barking'); setActive(true) }, 5000)
       }

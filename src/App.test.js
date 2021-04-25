@@ -51,7 +51,7 @@ it('displays "wagging tail, pleased!" when command is set to "Pet" after "Speak"
 
 // FAILING test case
 // Tricky bug: flusterLevel counter is not only increasing after consecutive "Pet" commands
-it('displays "none" 5 seconds after command is set to "Pet" 3 times', async () => {
+it('displays "none" 5 seconds after command is set to "Pet" 3 consecutive times', async () => {
   // Set to different state before test
   wrapper.find('#command').simulate('change', { target: { value: 'speak' } })
   wrapper.find('#commandButton').simulate('click')
